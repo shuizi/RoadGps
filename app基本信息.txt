@@ -1,0 +1,39 @@
+微信开放平台账号密码：
+ROCASAN@ROADCHINA.COM.CN
+shanghai.1
+
+1507bfd3f7c95f94383
+
+极光推送
+AppKey：
+c7f593984fcf6d713321e674
+Master Secret：
+0d513ebaccdff9d8320c6c63
+
+liujie@roadchina.com.cn
+Ming@1611
+
+流程看图的话应该是这样的：
+
+点击微信登录，通过微信的用户信息api你可以获得unionid，头像等信息。，然后你通过Jpush的api获得到了Jpush的设备注册号。
+
+调用RCA的接口appRegist,成功之后会返回车牌号及所有的gps发送的模板。其余的主页中显示的内容你自己获取（当前时间，状态（当前有无当前正在发送的），位置）
+
+主页中的当前案件，就是正在发送gps的案件，案件号会通过”newService” message Jpush推送过来（更改状态为忙碌状态）. 
+
+然后就是根据模板拼装要发送的数据了。拼装之后定时发送gps。
+
+如果模板改了会通过JPush推送信息过来，你调用getTemplateById 接口更新下模板。
+
+如果接受到“finishService” message JPush的信息，停止具体的案件的gps发送（检查下需不需要更改状态）。
+
+
+界面中的案件号，车牌号，应用程序拿不到这两个所以就通过接口返回给你了，其余的都是你自己设置的。
+
+
+
+
+{"msgType":"templateChanged","contractNumber":"4000003000084","versionNumber":"11.01.08"}
+
+
+http://ras-dev.rcaservice.com.cn/RCA_API.html
